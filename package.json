@@ -20,7 +20,6 @@
     "react": "^0.12.2"
   },
   "devDependencies": {
-    "browserify": "^8.1.3",
     "browserify-shim": "^3.8.2",
     "colors": "^1.0.3",
     "connect-livereload": "^0.5.2",
@@ -29,6 +28,7 @@
     "express": "^4.11.2",
     "gulp": "^3.8.10",
     "gulp-6to5": "^3.0.0",
+    "gulp-browserify": "^0.5.1",
     "gulp-csso": "^1.0.0",
     "gulp-debug": "^2.0.0",
     "gulp-filter": "^2.0.0",
@@ -46,7 +46,6 @@
     "reactify": "^1.0.0",
     "run-sequence": "^1.0.2",
     "tiny-lr": "^0.1.5",
-    "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.3.0"
+    "vinyl-source-stream": "^1.0.0"
   }
 }

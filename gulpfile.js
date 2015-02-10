@@ -2,9 +2,6 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     reactify = require('reactify'),
     es6ify = require('es6ify'),
-    browserify = require('browserify'),
-    watchify = require('watchify'),
-    colors = require('colors'),
     source = require('vinyl-source-stream'),
 
     $ = require('gulp-load-plugins')({
@@ -14,13 +11,13 @@ var gulp = require('gulp'),
         }
     });
 
+require('colors');
 
 /** Config variables **/
 var path = require('path'),
     tmpDir = './.tmp',
     destDir = './dist',
     appDir = './app',
-    sourceMapsDir = '.',
     expressSrc = path.join(__dirname, destDir),
     port = 9000,
     lrPort = 4002,
@@ -50,23 +47,31 @@ function log(error) {
 gulp.task('express', function (cb) {
     var express = require('express');
     var app = express();
-    console.log('start express in ' + expressSrc);
+    console.log(('start express in ' + expressSrc).green);
     app.use(require('connect-livereload')({port: lrPort}));
     app.use(express.static(expressSrc));
     app.listen(port);
+    cb();
 });
 
-gulp.task('livereload', function () {
+gulp.task('livereload', function (cb) {
     tinylr = require('tiny-lr')();
     tinylr.listen(lrPort);
+    cb();
 });
 
-gulp.task('watch', function () {
+gulp.task('open',function(cb){
+    require('opn')('http://localhost:' + port + '/');
+    cb();
+});
+
+gulp.task('watch', function (cb) {
     gulp.watch([expressSrc + '/**'], notifyLiveReload);
+    cb();
 });
 
 function notifyLiveReload(event) {
-    console.log('notifyLiveReload');
+    console.log('notifyLiveReload'.yellow);
 
     var fileName = require('path').relative(__dirname, event.path);
     tinylr.changed({
@@ -79,26 +84,21 @@ function notifyLiveReload(event) {
 gulp.task('serve', function () {
     isDev = true;
     isProduction = false;
-    gulp.start('build', 'express', 'livereload', 'watch', function () {
-        require('opn')('http://localhost:' + port + '/');
-    });
+    runSequence('build',['express', 'livereload'],['watch', 'open']);
 });
 /**********************/
 
 
 /** buid **/
 gulp.task('browserify', function () {
-    var entryFile = [appDir, 'js', 'main.js'].join('/');
-    var bundler = browserify({
-        entries: [entryFile],
-        debug: isDev
-    });
+    var entryFile = path.resolve(appDir, 'js', 'main.js');
 
-    bundler.transform(reactify);
-    bundler.transform(es6ify);
-
-    return bundler.bundle()
-        .pipe(source('bundle.js'))
+    return gulp.src(entryFile)
+        .pipe($.browserify({
+            debug: isDev,
+            transform: [reactify, es6ify]
+        }))
+        .pipe($.rename('bundle.js'))
         .pipe(gulp.dest(path.join(tmpDir, 'js')))
         .on('error', log);
 });
@@ -147,19 +147,16 @@ gulp.task('rev', function () {
 
 gulp.task('clean', require('del').bind(null, [tmpDir, destDir]));
 
-function afterBuild(cb) {
-    return function () {
-        $.util.log('----------------'.green);
-        $.util.log('Build finished:');
-        $.util.log('IsDev:', isDev);
-        $.util.log('isProduction:', isProduction);
-        $.util.log('----------------'.green);
-        cb.apply(this, arguments);
-    }
-};
+gulp.task('afterBuild', function () {
+    $.util.log('----------------'.green);
+    $.util.log('Build finished:');
+    $.util.log('IsDev:', isDev);
+    $.util.log('isProduction:', isProduction);
+    $.util.log('----------------'.green);
+});
 
 gulp.task('build', function (cb) {
-    runSequence('clean', ['scripts'], 'html', 'rev', afterBuild(cb));
+    runSequence('clean', ['scripts'], 'html', 'rev', 'afterBuild', cb);
 });
 /**********************/
 
