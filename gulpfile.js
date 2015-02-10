@@ -19,7 +19,7 @@ var gulp = require('gulp'),
 var path = require('path'),
     tmpDir = './.tmp',
     destDir = './dist',
-    appDir = './src',
+    appDir = './app',
     sourceMapsDir = '.',
     expressSrc = path.join(__dirname, destDir),
     port = 9000,
@@ -87,41 +87,25 @@ gulp.task('serve', function () {
 
 
 /** buid **/
-gulp.task('build-script', function () {
-    return gulp.src(path.join(appDir, 'scripts/**/*.js'))
-        .pipe($.if(isDev, $.sourcemaps.init()))
-        .pipe($.to5())
-        .pipe($.react())
-        .pipe($.if(isDev, $.sourcemaps.write(sourceMapsDir)))
-        .pipe(gulp.dest(path.join(tmpDir, 'scripts')))
-        .pipe($.size({title: 'Builded scripts'}));
-});
-
 gulp.task('browserify', function () {
-    var entryFile = 'main.js';
+    var entryFile = [appDir, 'js', 'main.js'].join('/');
     var bundler = browserify({
-        entries: entryFile,
-        basedir: path.join(appDir, 'scripts'),
-        debug: isDev,
-        insertGlobals: false
+        entries: [entryFile],
+        debug: isDev
     });
 
     bundler.transform(reactify);
     bundler.transform(es6ify);
 
-    var stream = bundler.bundle();
-    stream.on('error', log);
-
-    return stream.pipe(source('bundle.js'))
-        .pipe($.rename('bundle.js'))
-        .pipe(gulp.dest(path.join(tmpDir, 'scripts')))
-        .pipe($.size({title: 'Browserifyed scripts'}))
+    return bundler.bundle()
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest(path.join(tmpDir, 'js')))
         .on('error', log);
 });
 
 gulp.task('scripts', function (cb) {
     return runSequence('browserify', cb);
-})
+});
 
 gulp.task('html', function () {
     var jsFilter = $.filter('**/*.js');
