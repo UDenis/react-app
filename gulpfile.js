@@ -3,10 +3,11 @@ var gulp = require('gulp'),
     reactify = require('reactify'),
     es6ify = require('es6ify'),
     source = require('vinyl-source-stream'),
+    watchify = require('watchify'),
+    browserify = require('browserify'),
 
     $ = require('gulp-load-plugins')({
         rename: {
-            'gulp-6to5': 'to5',
             'gulp-rev-all': 'revall'
         }
     });
@@ -24,8 +25,8 @@ var path = require('path'),
 
 // Allows gulp <target> --dev to be run for a non-minified output
     isDev = $.util.env.dev === true,
-    isProduction = !isDev,
-    tinylr;
+    isProduction = !isDev;
+
 /**********************/
 
 
@@ -44,6 +45,8 @@ function log(error) {
 
 
 /** express server & lr & watch **/
+var tinylr;
+
 gulp.task('express', function (cb) {
     var express = require('express');
     var app = express();
@@ -90,21 +93,37 @@ gulp.task('serve', function () {
 
 
 /** buid **/
-gulp.task('browserify', function () {
-    var entryFile = path.resolve(appDir, 'js', 'main.js');
+var entryFile = path.resolve(appDir, 'js', 'main.js'),
+    bundler;
 
-    return gulp.src(entryFile)
-        .pipe($.browserify({
-            debug: isDev,
-            transform: [reactify, es6ify]
-        }))
-        .pipe($.rename('bundle.js'))
+gulp.task('browserify', function(cb){
+    bundler = browserify({
+        debug: isDev,
+        entries: [entryFile]
+    });
+
+    if (isDev) {
+        bundler = watchify(bundler,watchify.args);
+        bundler.on('update', function(){
+            console.log('Start watchify.update handler'.yellow);
+            runSequence('bundle', 'html');
+        });
+    }
+
+    bundler.transform(reactify);
+    bundler.transform(es6ify);
+    cb();
+});
+
+gulp.task('bundle', function(){
+    return bundler.bundle()
+        .on('error', log)
+        .pipe(source('bundle.js'))
         .pipe(gulp.dest(path.join(tmpDir, 'js')))
-        .on('error', log);
 });
 
 gulp.task('scripts', function (cb) {
-    return runSequence('browserify', cb);
+    return runSequence('browserify', 'bundle', cb);
 });
 
 gulp.task('html', function () {
