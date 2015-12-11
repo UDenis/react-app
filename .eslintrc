@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    // I write for browser
+    "browser": true,
+    "es6":true
+  },
+  "extends":["eslint:recommended"],
+  // To give you an idea how to override rule options:
+  "rules": {
+    "no-unused-vars":0,
+    "no-mixed-spaces-and-tabs":0
+  }
+}
