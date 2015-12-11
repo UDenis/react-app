@@ -1,20 +1,22 @@
 {
-  "name": "test-app",
+  "name": "react-app",
   "version": "0.0.0",
   "authors": [
-    "UDenis"
+    "Denis Maslov"
   ],
-  "description": "React test app",
+  "description": "React app template",
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "app/bower_components"
   ],
+  "homepage": "https://github.com/UDenis/react-app",
   "dependencies": {
-    "react": "~0.12.2"
+    "react": "~0.14.3",
+    "react-dom": "~0.1.0"
   }
 }

@@ -1,4 +1,5 @@
+import  {render} from 'react-dom';
 import  React from 'react';
-import App from './components/app';
+import Root from './components/root.jsx';
 
-React.render(<App/>, document.getElementById('app'));
+render(<Root></Root>, document.getElementById('root'));
