@@ -1,0 +1,519 @@
+@charset "utf-8"
+
+// темно-синий
+cl1 = #2D4668
+// голубой
+// cl2 = #00aeef
+cl2 = #00a8e7
+// зеленый
+cl3 = #81c624
+// светло-голубой
+cl4 = #7dd3f7
+// салатовый
+cl5 = #d7df21
+
+
+// шрифт
+ffn = 'Open Sans', Arial, Tahoma
+
+fwl = 300
+fwn = 400
+fwm = 600
+fwb = bold
+
+// кегель
+fzn = 16px
+
+// текст
+ctext = #454E59
+
+ctextlight = #828A96
+
+ctextholder = #aaa
+ctextdis = #bbb
+
+ctexterror = #D0021B
+ctextsuccess = cl3 - 20%
+ctextwarning = #DA9D04
+ctextdanger= #F57F1E
+
+
+clink = #006AA1
+clinklight = #6690B0
+
+
+cbglight = #ECF2F6
+
+// cbglight = #EEF2F5
+cbgsky = saturate(cbglight + 60%, 50%)
+cbghighlight = cl2 + 90%
+cbglightgreen = cl3 + 90%
+
+cbginfo = #FFFBDB
+cbgerror = #FFEBEB
+cbgsuccess = #EDFAD7
+
+// цвет границы ошибки
+cerror = #E54D4D
+csucces = cl3
+
+brbut = 2px
+brform = 1px
+
+// цвет границы форм
+cbd = #D0D3D7
+cbdlight = cbd + 50%
+cbdlightsky = saturate(cbglight - 10%, 10%)
+
+// цвет разделителя
+cseparator = saturate(cbglight - 5%, 40%)
+
+cRUR = #E8A807
+cUSD = cl3 - 20%
+cEUR = cl2
+cCNY = #E54D4D
+
+
+// Open Sans
+
+@font-face
+	font-family: 'Open Sans';
+	src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/open_sans/opensans-bold.woff') format('woff')
+	font-weight: bold;
+	font-style: normal;
+
+@font-face
+	font-family: 'Open Sans';
+	src local('Open Sans Bold Italic'), local('OpenSans-BoldItalic'), url('../fonts/open_sans/opensans-bolditalic.woff') format('woff')
+	font-weight: bold;
+	font-style italic
+
+@font-face
+	font-family: 'Open Sans';
+	src: local('Open Sans Light'), local('OpenSans-Light'), url('../fonts/open_sans/opensans-light.woff') format('woff')
+	font-weight: 300;
+	font-style: normal;
+
+@font-face
+	font-family: 'Open Sans';
+	src: local('Open Sans Light Italic'), local('OpenSans-LightItalic'), url('../fonts/open_sans/opensans-lightitalic.woff') format('woff')
+	font-weight: 300;
+	font-style italic
+
+@font-face
+	font-family: 'Open Sans';
+	src local('Open Sans'), local('OpenSans'), url('../fonts/open_sans/opensans-regular.woff') format('woff')
+	font-weight: normal
+	font-style: normal
+
+@font-face
+	font-family: 'Open Sans';
+	src: local('Open Sans Italic'), local('OpenSans-Italic'), url('../fonts/open_sans/opensans-italic.woff') format('woff')
+	font-weight: normal;
+	font-style italic
+
+@font-face
+	font-family: 'Open Sans';
+	src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url('../fonts/open_sans/opensans-semibold.woff') format('woff')
+	font-weight: 600;
+	font-style normal
+
+@font-face
+	font-family: 'Open Sans';
+	src: local('Open Sans Semibold'), local('OpenSans-SemiboldItalic'), url('../fonts/open_sans/opensans-semibolditalic.woff') format('woff')
+	font-weight: 600;
+	font-style italic
+
+
+*
+	margin 0
+	padding 0
+	vertical-align baseline
+	outline none
+
+html, body
+	font-size fzn
+	font-family ffn
+	font-weight fwn
+	color ctext
+	min-height 100%
+	height 100%
+	line-height 1.3
+	background #fff
+
+div, article, aside, footer, header, nav, section, dialog, figure, hgroup, menu
+	position relative
+
+// ------------  grid -----------------
+.row
+	clearfix()
+
+.row_table
+	overflow hidden
+	.column, .columns, .col
+		margin-bottom -1000px
+		padding-bottom 1000px
+
+.col,
+.column,
+.columns
+	width 100%
+	float left
+	box-sizing border-box
+	margin-left 3%
+.col:first-child,
+.column:first-child,
+.columns:first-child
+	margin-left 0
+.col,
+.column,
+.columns
+	&.one
+		width 5.58333333333%
+	&.two
+		width 14.1666666667%
+	&.three
+		width 22.75%
+	&.four
+		width 31.3333333333%
+	&.five
+		width 39.9166666667%
+	&.six
+		width 48.5%
+	&.seven
+		width 57.0833333333%
+	&.eight
+		width 65.6666666667%
+	&.nine
+		width 74.25%
+	&.ten
+		width 82.8333333333%
+	&.eleven
+		width 91.4166666667%
+	&.twelve, &.full
+		width 100%
+		margin-left 0
+		float none
+	&.one-third
+		width 30.6666666667%
+	&.two-thirds
+		width 65.3333333333%
+	&.half
+		width 48.5%
+// -------------------------------
+
+.w100
+	width 100%
+// формы
+
+::-webkit-input-placeholder
+	color ctextholder
+	font-weight 300
+::-moz-placeholder
+	color ctextholder
+	font-weight 300
+:-ms-input-placeholder
+	color ctextholder!important
+	font-weight 300
+
+
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="time"],
+input[type="date"],
+input[type="number"],
+textarea
+	height 40px
+	border 1px solid cbd
+	border-radius brform
+	display inline-block
+	background-color #fff
+	font-family ffn
+	font-size fzn - 1px
+	font-weight fwn
+	padding 0 15px
+	color ctext
+	box-shadow inset 0px 2px 2px -2px rgba(0,0,0,0.18)
+	box-sizing border-box
+	vertical-align middle
+	-webkit-appearance textfield
+	transition border-color .2s, color .2s, background .2s, box-shadow .2s
+
+	&:focus
+		border-color cl2
+		box-shadow inset 0px 2px 2px -2px rgba(0,0,0,0)
+
+
+	&[disabled], &.disabled
+		color ctextdis
+		background #f5f5f5
+		&::-webkit-input-placeholder
+			color ctextdis
+		&::-moz-placeholder
+			color ctextdis
+		&:-ms-input-placeholder
+			color ctextdis!important
+
+
+	// валидация
+	&.error
+		border-color cerror
+		background-color cerror + 97%
+		// animation error-border-flash .7s both
+		&::-webkit-input-placeholder
+			// color ctexterror
+		&::-moz-placeholder
+			// color ctexterror
+		&:-ms-input-placeholder
+			// color ctexterror!important
+		// &:focus
+		// 	border-color cl2
+
+	&.valid, &.success
+		border-color csucces
+		background csucces + 96%
+
+	// размеры
+	&.xsmall
+		height 26px
+		padding 0 6px
+		font-size fzn - 2px
+	&.small
+		height 34px
+		padding 0 10px
+		font-size fzn - 2px
+	&.big
+		height 46px
+		padding 0 10px
+		font-size fzn + 2px
+
+// кнопки
+
+button
+	background none
+	border none
+	font-family ffn
+	cursor pointer
+	text-align left
+	font-weight fwn
+	&[disabled]
+		color ctextdis
+	&::-moz-focus-inner
+		border 0
+.button
+	display inline-block
+	font-size fzn + 3px
+	font-family ffn
+	font-weight fwm
+	color #fff
+	background cl2
+	background-repeat no-repeat
+	background-position center
+	background-size 0
+	text-align center
+	height 46px
+	line-height 44px
+	border-radius brbut
+	padding 0 30px
+	padding-bottom 3px
+	box-sizing border-box
+	border none
+	text-decoration none
+	vertical-align middle
+	cursor pointer
+	box-shadow inset 0px -2px 0px 0px rgba(#000,0.15), inset 0px -3px 0px 0px rgba(#fff,0.1)
+	text-shadow 0 2px 0 rgba(#000,0.04)
+	transition background-color .2s, color .2s, box-shadow .2s
+	z-index 1
+	overflow hidden
+	-webkit-appearance none
+	appearance none
+
+	&:hover
+		background-color cl2 + 5%
+		color #fff
+		box-shadow inset 0px -2px 0px 0px rgba(#000,0.2), inset 0px -3px 0px 0px rgba(#fff,0.1), 0 1px 1px rgba(#000,0.2)
+		&:before
+			transform scale3d(1,1,1)
+			opacity 1
+	&:active
+		opacity .9
+		transition none
+
+	&.second
+		background-color cl3
+		&:hover
+			background-color cl3 + 3%
+
+	&.cancel
+		background-color cerror
+		&:hover
+			background-color cerror + 10%
+
+	&.dark
+		background-color cl1
+		&:hover
+			background-color cl1 + 5%
+
+
+	&.clean
+		background none!important
+		box-shadow none!important
+		text-shadow none!important
+		color ctextlight
+		text-decoration none
+		font-weight fwn
+		&:hover
+			color ctext
+		&.disabled, &[disabled]
+			color ctextdis
+			&:hover
+				color ctextdis
+
+	&.light
+		background-color #EDFAFF
+		border 1px solid #A9CFDE
+		box-shadow none
+		color clink
+		text-shadow none!important
+		font-weight fwn
+		height 44px
+		&:hover
+			background-color #F7FDFF
+		&[class*="icon-"]:before
+			color clinklight
+		&.disabled, &[disabled]
+			border-color #CFD4DB
+			&:hover
+				box-shadow none
+
+
+	&.xsmall
+		height 26px
+		line-height 25px
+		font-size fzn - 4px
+		padding-left 10px
+		padding-right 10px
+
+	&.small
+		height 34px
+		line-height 32px
+		font-size fzn - 3px
+		padding-left 15px
+		padding-right 15px
+
+	&.middle
+		height 40px
+		line-height 37px
+		font-size fzn
+		padding-left 22px
+		padding-right 22px
+
+	&.full
+		width 100%
+		text-align center
+		padding 0
+
+
+	&.disabled, &[disabled]
+		background-color #CFD4DB
+		cursor no-drop
+		color #fff
+		&:hover
+			background-color #CFD4DB
+			box-shadow inset 0px -2px 0px 0px rgba(#000,0.2), inset 0px -3px 0px 0px rgba(#fff,0.1)
+
+.form_group, .form_group_list
+	clearfix()
+	margin-bottom 15px
+	.property_label
+		color ctextlight
+		padding-bottom 3px
+		&.col, &.column, &.columns
+			// text-align right
+			padding-bottom 0
+	.small_text
+		padding-top 5px
+.form_group_list
+	margin-bottom 10px
+
+// блок кнопок в конце формы
+.form_buttons
+	margin 30px 0 0
+
+.label_check
+	color ctextlight
+	font-size fzn - 2px
+	cursor pointer
+// ---------------------------------
+
+.hidden
+	display none!important
+.show
+	display block!important
+.no-margin
+	margin 0!important
+.no-padding
+	padding 0!important
+.no-bg
+	background none!important
+.no-border, a img
+	border none!important
+.clear
+	clear both
+	clearfix()
+.f_left
+	float left!important
+.f_right
+	float right!important
+.a_center
+	text-align center!important
+.a_left
+	text-align left!important
+.a_right
+	text-align right!important
+
+.poss
+	position static
+.fzn
+	font-size fzn!important
+
+.ov_ell
+	overflow ellipsis
+	max-width 100%
+	display block
+.ov_h
+	overflow hidden
+
+.d_ib
+	display inline-block
+.d_b
+	display block
+.d_in
+	display inline
+
+
+// ---------------------------------
+
+
+.calldialer_wrap
+	padding 30px
+	max-width 250px
+	margin 0 auto
+.calldialer_header
+	padding 45px 0 0
+	background url(../images/caller.svg) no-repeat center 0
+	text-align center
+	font-size 24px
+	color #828A97
+	margin 0 0 30px
+	text-transform uppercase
+	font-weight fwl
+.light_text
+	text-align center
+	color ctextlight
+	font-size fzn - 2px
+	margin-top 20px

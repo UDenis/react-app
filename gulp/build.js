@@ -23,9 +23,11 @@ gulp.task('browserify', ()=> {
 		});
 	}
 
-	bundler.transform(babelify, {
-		presets: ["es2015", "react"],
-	});
+	bundler.transform(babelify.configure({
+		presets: ["es2015", "react", "stage-2"],
+		plugins: ['transform-class-properties', 'transform-decorators'],
+		ignore: "**/voximplant.js"
+	}));
 
 	return bundle();
 

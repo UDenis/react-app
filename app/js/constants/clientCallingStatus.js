@@ -1,0 +1,4 @@
+export const NONE = false
+export const CALLING = 'CLIENT.CALLING'
+export const CALL_CONNECTED = 'CLIENT.CALL_CONNECTED'
+export const CALL_DISCONNECTED = 'CLIENT.CALL_DISCONNECTED'

@@ -1,0 +1,4 @@
+export const NONE = false
+export const CONNECTING = 'CLIENT_CONNECTING'
+export const CONNECTED = 'CLIENT_CONNECTED'
+export const DISCONNECTED = 'CLIENT_DISCONNECTED'

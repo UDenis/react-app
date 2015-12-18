@@ -1,13 +1,10 @@
-import React from 'react'
-import App from './app.jsx'
+import React, {Component} from 'react'
+import App from './App.jsx'
 
-export default class Root extends React.Component {
+export default class Root extends Component {
     render() {
         return (
-            <div>
-                <h1>This is root</h1>
-                <App></App>
-            </div>
+            <App></App>
         );
     }
 }

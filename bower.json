@@ -16,6 +16,7 @@
   ],
   "homepage": "https://github.com/UDenis/react-app",
   "dependencies": {
+    "fbemitter": "*",
     "react": "~0.14.3",
     "react-dom": "~0.1.0"
   }

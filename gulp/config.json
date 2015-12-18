@@ -1,6 +1,7 @@
 {
   "destDir": "./dist",
   "appDir": "./app",
+  "markup": "./markup/Calldialer",
   "port": 9000,
   "lrPort": 4002,
   "watch": false

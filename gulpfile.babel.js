@@ -9,16 +9,10 @@ import config from './gulp/conf';
 
 requireDir('./gulp');
 
-gulp.task('static', ()=> {
-	return gulp
-		.src(path.join(config.appDir, '/**/*.{css,png,jpg,jpeg,gif,ico,woff,ttf,eot,svg,html}'))
-		.pipe(gulp.dest(path.join(config.destDir)));
-});
-
 gulp.task('clean', del.bind(null, [config.destDir]));
 
 gulp.task('build', ['clean'], function (cb) {
-	runSequence(['static','build-js'], cb);
+	runSequence(['static', 'build-js'], cb);
 });
 
 gulp.task('serve', ['clean'], function (cb) {
